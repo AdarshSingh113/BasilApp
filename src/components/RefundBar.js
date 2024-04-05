@@ -21,7 +21,7 @@ const RefundBar = () => {
   const refundInitiated = orders.filter(order => order.status === "REFUND INITIATED").length;
 
   return (
-    <div className="bg-white w-[992px] h-[62px] mt-[16px] flex flex-row ml-[16px]">
+    <div className="bg-white w-[992px] h-[62px] mt-[16px] flex flex-row ml-[16px] shadow-lg rounded-lg">
       <div className="mr-[77px] flex flex-row items-center ml-[32px]">
         <h1 className="text-sm">Machines: {machines}</h1>
       </div>

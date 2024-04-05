@@ -4,7 +4,7 @@ import Search_LOGO from '../../src/assets/images/svg.tabler-icon.png';
 
 const Header = () => {
   return (
-    <div className='bg-white w-[1328px] mt-0.5 h-[85px] ml-[16px] flex items-center'>
+    <div className='bg-white w-[1328px] mt-0.5 h-[85px] ml-[16px] flex items-center shadow-lg rounded-lg'>
     <div className='bg-white ml-[32px] my-[16px] w-[246px] h-[53px]'>
       <h2 className='text-black mb-[12px]'>All Orders</h2>
       <p className="text-xs text-[#377DFF]">All Orders</p>

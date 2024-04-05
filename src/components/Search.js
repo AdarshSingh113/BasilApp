@@ -14,7 +14,7 @@ const Search = ({ orders, setFilteredOrders }) => {
     setFilteredOrders(filtered);
   };
   return (
-    <div className='bg-white w-[1328px]  h-[68px] ml-[16px] flex flex-row  mt-[16px]  justify-between items-center'>
+    <div className='bg-white w-[1328px]  h-[68px] ml-[16px] flex flex-row  mt-[16px]  justify-between items-center shadow-lg rounded-lg'>
       <div className="relative">
         <input
           type="text"

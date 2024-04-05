@@ -3,7 +3,7 @@ import orders from '../utils/orders';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
-import RefundBar from './RefundBar';
+
 import AllOrders from './AllOrders';
 
 const  Body = () => {
@@ -15,7 +15,6 @@ const  Body = () => {
       <Sidebar/>
       <div>
       <Header/>
-      <RefundBar/>
       <AllOrders/>
       </div>
     </div>

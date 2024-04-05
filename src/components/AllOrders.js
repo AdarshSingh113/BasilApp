@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SecondaryHeader from "./SecondaryHeader";
 import orders from "../utils/orders";
 import Search from './Search';
+import Filters from "./Filters";
+import RefundBar from './RefundBar';
 
 const AllOrders = () => {
     const [filteredOrders, setFilteredOrders] = useState(orders);
@@ -25,9 +27,11 @@ const AllOrders = () => {
     };
   
   return (
-    <div>
-      <div>
+    <div className="shadow-lg rounded-lg">
+      <div className="flex flex-row">
+        <div >
       <Search orders={orders} setFilteredOrders={setFilteredOrders} />
+      <RefundBar/>
         <SecondaryHeader onOrderIdSort={handleSortByOrderId}  onSort={handleSortByAmount}/>
         <div className="my-[16px] ml-[32px] mr-[22px]">
           <div className="w-[938px] mt-[16px] ml-[16px] bg-white "></div>
@@ -75,8 +79,11 @@ const AllOrders = () => {
             </div>
           ))}
         </div>
+        </div>
+        <div>
+            <Filters/>
+        </div>
       </div>
-      <div></div>
     </div>
   );
 };
