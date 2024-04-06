@@ -3,6 +3,12 @@ import CustomModal from "./CustomModal";
 
 const Filters = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({
+    machines: [],
+    statuses: [],
+    startDate: null,
+    endDate: null,
+  });
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -10,6 +16,11 @@ const Filters = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const updateFilters = (filters) => {
+    setSelectedFilters(filters);
+    closeModal(); // Close modal after updating filters
   };
 
   return (
@@ -31,15 +42,22 @@ const Filters = () => {
             Clear All
           </button>
         </div>
-        <div>{isModalOpen && <CustomModal isOpen={isModalOpen} onRequestClose={closeModal} />}
-</div>
+        <div>
+          {isModalOpen && (
+            <CustomModal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              updateFilters={updateFilters}
+            />
+          )}
+        </div>
         <div className="flex flex-col">
           <div className="flex items-center w-[181px] h-[27px] mt-[16px]">
             <label
               htmlFor="dateFrom"
               className=" text-[#5D6679] font-medium text-sm mr-2"
             >
-              Date From:
+              Date From: {selectedFilters.startDate && selectedFilters.startDate.toLocaleDateString()}
             </label>
           </div>
           <div className="flex items-center  w-[181px] h-[27px] mt-[12px]">
@@ -47,7 +65,7 @@ const Filters = () => {
               htmlFor="dateTo"
               className=" text-[#5D6679] font-medium text-sm mr-2"
             >
-              Date To:
+              Date To: {selectedFilters.endDate && selectedFilters.endDate.toLocaleDateString()}
             </label>
           </div>
           <div className="flex items-center  w-[181px] h-[27px] mt-[12px]">
@@ -55,7 +73,7 @@ const Filters = () => {
               htmlFor="Status"
               className=" text-[#5D6679] font-medium text-sm mr-2"
             >
-              Status:
+              Status: {selectedFilters.statuses.join(", ")}
             </label>
           </div>
           <div className="flex items-center  w-[181px] h-[27px] mt-[12px]">
@@ -63,7 +81,7 @@ const Filters = () => {
               htmlFor="Machines"
               className=" text-[#5D6679] font-medium text-sm mr-2"
             >
-              Machines:
+              Machines: {selectedFilters.machines.join(", ")}
             </label>
           </div>
         </div>

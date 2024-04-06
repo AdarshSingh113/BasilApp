@@ -5,23 +5,41 @@ import orders from "../utils/orders";
 import Banana_LOGO from "../../src/assets/images/Frame 47.png";
 import Cross2_LOGO from "../../src/assets/images/cross2.png";
 import Up_LOGO from "../../src/assets/images/Frame 40025.png";
-import Success_LOGO from "../../src/assets/images/div.mantine-Paper-root.png";
-import Pending_LOGO from "../../src/assets/images/div.mantine-Paper-root (1).png";
-import Sent_LOGO from "../../src/assets/images/div.mantine-Paper-root (2).png";
-import Failure_LOGO from "../../src/assets/images/div.mantine-Paper-root (3).png";
-import RefundInitiated_LOGO from "../../src/assets/images/div.mantine-Paper-root (4).png";
-import RefundCompleted_LOGO from "../../src/assets/images/div.mantine-Paper-root (5).png";
+import PENDING_LOGO from "../../src/assets/images/Pending.png";
+import SENT_LOGO from "../../src/assets/images/Sent.png";
+import FAILURE_LOGO from "../../src/assets/images/Failure.png";
+import REFUNDINTIATED_LOGO from "../../src/assets/images/RefundIntiated.png";
+import REFUNDCOMPLETED_LOGO from "../../src/assets/images/RefundCompleted.png";
+import SUCCESS_LOGO from "../../src/assets/images/SUCCESS.png";
+import Dates_LOGO from "../../src/assets/images/Frame 40275.png";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
-const CustomModal = ({ isOpen, onRequestClose }) => {
+const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
   const [selectedMachines, setSelectedMachines] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [selectedFromDate, setSelectedFromDate] = useState(null);
+  const [selectedToDate, setSelectedToDate] = useState(null);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    setSelectedFromDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+    setSelectedToDate(date);
+  };
 
   const images = [
-    { name: "Success", path: Success_LOGO },
-    { name: "Pending", path: Pending_LOGO },
-    { name: "Sent", path: Sent_LOGO },
-    { name: "Failure", path: Failure_LOGO },
-    { name: "RefundInitiated", path: RefundInitiated_LOGO },
-    { name: "RefundCompleted", path: RefundCompleted_LOGO },
+    { name: "Success", path: SUCCESS_LOGO },
+    { name: "Pending", path: PENDING_LOGO },
+    { name: "Sent", path: SENT_LOGO },
+    { name: "Failure", path: FAILURE_LOGO },
+    { name: "Refund Initiated", path: REFUNDINTIATED_LOGO },
+    { name: "Refund Completed", path: REFUNDCOMPLETED_LOGO },
   ];
 
   const removeMachine = (machineName) => {
@@ -42,6 +60,29 @@ const CustomModal = ({ isOpen, onRequestClose }) => {
         return [...prevSelected, trimmedMachineName];
       }
     });
+  };
+
+  const toggleStatus = (statusName) => {
+    setSelectedStatuses((prevSelected) => {
+      if (prevSelected.includes(statusName)) {
+        // If the status is already selected, remove it
+        return prevSelected.filter((name) => name !== statusName);
+      } else {
+        // If the status is not selected, add it
+        return [...prevSelected, statusName];
+      }
+    });
+  };
+
+  const applyFilters = () => {
+    // Combine all selected filters and pass them to the callback function
+    const selectedFilters = {
+      machines: selectedMachines,
+      statuses: selectedStatuses,
+      startDate: selectedFromDate,
+      endDate: selectedToDate,
+    };
+    updateFilters(selectedFilters);
   };
 
   return (
@@ -143,18 +184,80 @@ const CustomModal = ({ isOpen, onRequestClose }) => {
             </div>
           ))}
         </div>
-        <div className="w-[720px] h-[228px] ml-[10px] mt-[16px] mr-[32px]">
+        <div className="w-[790px] h-[228px] ml-[10px] mt-[16px] mr-[32px]">
           <p className="font-semibold text-[#333333]">Status</p>
           <div className="flex flex-wrap mt-[16px]">
             {images.map((image, index) => (
-              <img
+              <button
                 key={index}
-                className="w-[114px] h-[91px] mr-[20px] mb-[20px]"
-                alt={image.name}
-                src={image.path}
-              />
+                className="w-[114px] h-[91px] rounded-lg border mr-[40px] mb-[20px] border-gray-400 flex items-center justify-center focus:border-black focus:outline-none"
+              >
+                <div>
+                  <img
+                    src={image.path}
+                    alt={image.name}
+                    className="w-[28px] mb-[10px] h-[28px]"
+                  />
+                  <p className="font-semibold text-sm">{image.name}</p>
+                </div>
+              </button>
             ))}
           </div>
+        </div>
+        <div className="mt-[32px]">
+          <p>Date Range</p>
+          <div className="flex flex-row mt-[47px] shadow-lg">
+            <div className="mt-[-40px]">
+              <img
+                alt="dates"
+                src={Dates_LOGO}
+                className="w-[108px]  h-[422px]"
+              />
+            </div>
+            <div className="mr-4 w-[270px] h-[380px]">
+              <label className="block mb-2">From:</label>
+              <div className="w-[250px] h-[36px] border rounded-lg mb-[17px] border-gray-200">
+                {selectedFromDate && (
+                  <div className="text-base flex align items-center justify-center">
+                    <p>{selectedFromDate.toLocaleDateString()}</p>
+                  </div>
+                )}
+              </div>
+              <Calendar
+                value={startDate}
+                onChange={handleStartDateChange}
+                minDetail="month"
+              />
+            </div>
+            <div className="mr-4 w-[270px] h-[380px]">
+              <label className="block mb-2">To:</label>
+              <div className="w-[250px] h-[36px] border rounded-lg mb-[17px] border-gray-200">
+                {selectedToDate && (
+                  <div className="flex align items-center justify-center">
+                    <p>{selectedToDate.toLocaleDateString()}</p>
+                  </div>
+                )}
+              </div>
+              <Calendar
+                value={endDate}
+                onChange={handleEndDateChange}
+                minDetail="month"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-[890px] h-[68px] flex justify-between items-center mt-[32px]">
+          <button className="flex items-center">
+            <p className="text-[#5D6679] text-sm underline underline-offset-[2px]">
+              Clear All
+            </p>
+          </button>
+          <button
+            className="w-[160px] h-[36px] bg-[#377DFF] mr-[50px] rounded-lg"
+            onClick={applyFilters}
+          >
+            <p className="text-white"> Apply</p>
+          </button>
         </div>
       </div>
     </Modal>
