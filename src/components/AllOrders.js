@@ -28,9 +28,9 @@ const AllOrders = () => {
   
   return (
     <div className="shadow-lg rounded-lg">
+      <Search orders={orders} setFilteredOrders={setFilteredOrders} />
       <div className="flex flex-row">
         <div >
-      <Search orders={orders} setFilteredOrders={setFilteredOrders} />
       <RefundBar/>
         <SecondaryHeader onOrderIdSort={handleSortByOrderId}  onSort={handleSortByAmount}/>
         <div className="my-[16px] ml-[32px] mr-[22px]">
