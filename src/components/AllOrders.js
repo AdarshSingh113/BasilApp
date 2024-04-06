@@ -86,7 +86,7 @@ const AllOrders = () => {
                   <p className="text-xs ">{order.order_id}</p>
                 </div>
                 <div className="w-[100px] h-[84px] bg-white flex items-center mr-[38px]">
-                  <p className="text-xs ">{order.machine_name}</p>
+                  <p className="text-xs ">{order.machine_name + order.machine_code}</p>
                 </div>
                 <div className="w-[115px] h-[84px] bg-white flex items-center mr-[38px]">
                   <p className="text-xs ">{order.customer_name}</p>
