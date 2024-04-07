@@ -6,54 +6,53 @@ import Filters from "./Filters";
 import RefundBar from "./RefundBar";
 import ExtremeLeft_LOGO from "../../src/assets/images/_Icon_.png";
 import ExtremeRight_LOGO from "../../src/assets/images/chevrons-right.png";
-import Pagination_LOGO from "../../src/assets/images/_Pagination Item_.png"
+import Pagination_LOGO from "../../src/assets/images/_Pagination Item_.png";
 import Left_LOGO from "../../src/assets/images/_Icon_ (1).png";
 import Right_LOGO from "../../src/assets/images/chevron-right.png";
 import Vector_LOGO from "../../src/assets/images/Vector.png";
-
+import { useNavigate } from "react-router-dom";
 
 const AllOrders = () => {
   const [filteredOrders, setFilteredOrders] = useState(orders);
   const [sortByOrderIdAsc, setSortByOrderIdAsc] = useState(true);
   const [sortByAmountAsc, setSortByAmountAsc] = useState(true);
 
-  const updateFilteredOrders = (newFilteredOrders) => {
-    //setFilteredOrders(newFilteredOrders);
-    const { machines, statuses } = newFilteredOrders;
+  const navigate = useNavigate();
 
+  const handleOrderDetails = (orderId) => {
+    navigate(`/orderDetails/${orderId}`);
+  };
+
+  const updateFilteredOrders = (newFilteredOrders) => {
+    const { machines, statuses } = newFilteredOrders;
 
     let filteredOrders = orders;
 
-  if (machines.length > 0) {
-    filteredOrders = filteredOrders.filter(order => {
-      const machineName = order.machine_name.split('(')[0].trim();
-      return machines.includes(machineName);
-    });
-  }
+    if (machines.length > 0) {
+      filteredOrders = filteredOrders.filter((order) => {
+        const machineName = order.machine_name.split("(")[0].trim();
+        return machines.includes(machineName);
+      });
+    }
 
-  if (statuses.length > 0) {
-    filteredOrders = filteredOrders.filter(order => {
-      const status = order.status.toUpperCase();
-      const uppercaseStatuses = statuses.map(s => s.toUpperCase());
-      return uppercaseStatuses.includes(status);
-    });
-  }
-
-
+    if (statuses.length > 0) {
+      filteredOrders = filteredOrders.filter((order) => {
+        const status = order.status.toUpperCase();
+        const uppercaseStatuses = statuses.map((s) => s.toUpperCase());
+        return uppercaseStatuses.includes(status);
+      });
+    }
 
     setFilteredOrders(filteredOrders);
   };
 
   const clearAllFilters = () => {
-    setFilteredOrders(orders); // Reset filteredOrders back to original orders
+    setFilteredOrders(orders);
   };
-  
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 10;
 
-  // Calculate indexes for slicing the orders array based on current page
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = (currentPage - 1) * ordersPerPage;
   const currentOrders = filteredOrders.slice(
@@ -90,7 +89,6 @@ const AllOrders = () => {
     setFilteredOrders(sortedOrders);
   };
 
-
   return (
     <div className="shadow-lg rounded-lg">
       <Search orders={orders} setFilteredOrders={setFilteredOrders} />
@@ -105,6 +103,7 @@ const AllOrders = () => {
             <div className="w-[938px] mt-[16px] ml-[16px "></div>
             {currentOrders.map((order, index) => (
               <button
+                onClick={() => handleOrderDetails(order.order_id)}
                 key={index + indexOfFirstOrder}
                 className="flex flex-row mb-[16px]"
               >
@@ -118,7 +117,9 @@ const AllOrders = () => {
                   <p className="text-xs ">{order.order_id}</p>
                 </div>
                 <div className="w-[100px] h-[84px] bg-white flex items-center mr-[38px]">
-                  <p className="text-xs ">{order.machine_name + order.machine_code}</p>
+                  <p className="text-xs ">
+                    {order.machine_name + order.machine_code}
+                  </p>
                 </div>
                 <div className="w-[115px] h-[84px] bg-white flex items-center mr-[38px]">
                   <p className="text-xs ">{order.customer_name}</p>
@@ -154,59 +155,70 @@ const AllOrders = () => {
           </div>
           <div className="w-[992px] h-[32px]  bg-white my-[16px] ml-[32px] mr-[22px] flex flex-row justify-between ">
             <div className="w-[200px] h-[32px] flex items-center">
-              <p className="text-sm font-semibold  text-[#5D6679]">Showing {indexOfFirstOrder} to {Math.min(indexOfLastOrder, filteredOrders.length)} of {filteredOrders.length} entries</p>
+              <p className="text-sm font-semibold  text-[#5D6679]">
+                Showing {indexOfFirstOrder} to{" "}
+                {Math.min(indexOfLastOrder, filteredOrders.length)} of{" "}
+                {filteredOrders.length} entries
+              </p>
             </div>
             <div className="w-[200px] h-[32px] flex items-center flex-row">
-              <p className="text-sm font-semibold  text-[#5D6679]">Rows per page: {ordersPerPage}</p>
+              <p className="text-sm font-semibold  text-[#5D6679]">
+                Rows per page: {ordersPerPage}
+              </p>
               <img
-              className="w-[8px] h-[8px] ml-[4px]"
-              alt="Lgg"
-              src={Vector_LOGO}
+                className="w-[8px] h-[8px] ml-[4px]"
+                alt="Lgg"
+                src={Vector_LOGO}
               />
             </div>
             <div className="flex items-center justify-center bg-white">
-              <button onClick={prevPage}
-              disabled={currentPage === 1}>
+              <button onClick={prevPage} disabled={currentPage === 1}>
                 <img
                   className="w-[34px] h-[32px] mr-[5px]"
                   alt="ExtremeLEft"
                   src={ExtremeLeft_LOGO}
                 />
-                </button>
-                <button onClick={prevPage}
-              disabled={currentPage === 1}>
+              </button>
+              <button onClick={prevPage} disabled={currentPage === 1}>
                 <img
                   className="w-[34px] h-[32px] mr-[5px]"
                   alt="LEft"
                   src={Left_LOGO}
                 />
-                </button>
-                <img
-                  className="w-[34px] h-[32px] mr-[5px]"
-                  alt="Pagination"
-                  src={Pagination_LOGO}
-                />
-                <button  onClick={nextPage}
-              disabled={indexOfLastOrder >= filteredOrders.length}>
+              </button>
+              <img
+                className="w-[34px] h-[32px] mr-[5px]"
+                alt="Pagination"
+                src={Pagination_LOGO}
+              />
+              <button
+                onClick={nextPage}
+                disabled={indexOfLastOrder >= filteredOrders.length}
+              >
                 <img
                   className="w-[34px] h-[32px] mr-[5px]"
                   alt="Right"
                   src={Right_LOGO}
                 />
-                </button>
-                <button  onClick={nextPage}
-              disabled={indexOfLastOrder >= filteredOrders.length}>
+              </button>
+              <button
+                onClick={nextPage}
+                disabled={indexOfLastOrder >= filteredOrders.length}
+              >
                 <img
                   className="w-[34px] h-[32px] mr-[5px]"
                   alt="ExtremeRight"
                   src={ExtremeRight_LOGO}
                 />
-                </button>
+              </button>
             </div>
           </div>
         </div>
         <div>
-          <Filters updateFilteredOrders={updateFilteredOrders} clearAllFilters={clearAllFilters}  />
+          <Filters
+            updateFilteredOrders={updateFilteredOrders}
+            clearAllFilters={clearAllFilters}
+          />
         </div>
       </div>
     </div>

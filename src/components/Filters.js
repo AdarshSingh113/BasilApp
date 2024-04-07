@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CustomModal from "./CustomModal";
 import Cross2_LOGO from "../../src/assets/images/cross2.png";
 
-const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
+const Filters = ({ updateFilteredOrders, clearAllFilters }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     machines: [],
@@ -10,11 +10,6 @@ const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
     startDate: null,
     endDate: null,
   });
-
- 
-  
-
-
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -26,10 +21,10 @@ const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
 
   const updateFilters = (filters) => {
     setSelectedFilters(filters);
-    closeModal(); // Close modal after updating filters
+    closeModal();
     updateFilteredOrders(filters);
   };
-  
+
   const handleClearAllFilters = () => {
     setSelectedFilters({
       machines: [],
@@ -37,7 +32,7 @@ const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
       startDate: null,
       endDate: null,
     });
-    clearAllFilters(); // Call the function passed from the parent component
+    clearAllFilters();
   };
 
   const removeMachine = (machine) => {
@@ -69,7 +64,10 @@ const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
               Select Filters
             </button>
           </div>
-          <button onClick={handleClearAllFilters} className="text-sm font-dm-sans border-gray-700 font-semibold text-[#5D6679] underline underline-offset-[2px]">
+          <button
+            onClick={handleClearAllFilters}
+            className="text-sm font-dm-sans border-gray-700 font-semibold text-[#5D6679] underline underline-offset-[2px]"
+          >
             Clear All
           </button>
         </div>
@@ -83,48 +81,62 @@ const Filters = ({ updateFilteredOrders ,clearAllFilters}) => {
           )}
         </div>
         <div className="flex flex-col">
-        <div className="flex items-center w-[181px] h-[27px] mt-[16px]">
-  <div className="flex items-center">
-    <label
-      htmlFor="dateFrom"
-      className="text-[#5D6679] font-medium text-sm mr-2"
-    >
-      Date From:{" "}
-    </label>
-    {selectedFilters.startDate && (
-      <div className="flex items-center  w-[110px] h-[27px]  justify-center rounded-lg border border-gray-200 mr-4">
-        <span className="mr-1 text-xs">{selectedFilters.startDate.toLocaleDateString()}</span>
-        <img
-          src={Cross2_LOGO}
-          alt="cross1"
-          className="w-3 h-3 cursor-pointer"
-          onClick={() => setSelectedFilters(prevFilters => ({ ...prevFilters, startDate: null }))}
-        />
-      </div>
-    )}
-  </div>
-</div>
-<div className="flex items-center w-[181px] h-[27px] mt-[16px]">
-  <div className="flex items-center ">
-    <label
-      htmlFor="dateTo"
-      className="text-[#5D6679] font-medium text-sm mr-2"
-    >
-      Date To:{" "}
-    </label>
-    {selectedFilters.endDate && (
-      <div className="flex items-center  w-[110px] h-[27px]  justify-center rounded-lg border border-gray-200 mr-2">
-        <span className="mr-1 text-xs">{selectedFilters.endDate.toLocaleDateString()}</span>
-        <img
-          src={Cross2_LOGO}
-          alt="cross23"
-          className="w-3 h-3 cursor-pointer"
-          onClick={() => setSelectedFilters(prevFilters => ({ ...prevFilters, endDate: null }))}
-        />
-      </div>
-    )}
-  </div>
-</div>
+          <div className="flex items-center w-[181px] h-[27px] mt-[16px]">
+            <div className="flex items-center">
+              <label
+                htmlFor="dateFrom"
+                className="text-[#5D6679] font-medium text-sm mr-2"
+              >
+                Date From:{" "}
+              </label>
+              {selectedFilters.startDate && (
+                <div className="flex items-center  w-[110px] h-[27px]  justify-center rounded-lg border border-gray-200 mr-4">
+                  <span className="mr-1 text-xs">
+                    {selectedFilters.startDate.toLocaleDateString()}
+                  </span>
+                  <img
+                    src={Cross2_LOGO}
+                    alt="cross1"
+                    className="w-3 h-3 cursor-pointer"
+                    onClick={() =>
+                      setSelectedFilters((prevFilters) => ({
+                        ...prevFilters,
+                        startDate: null,
+                      }))
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center w-[181px] h-[27px] mt-[16px]">
+            <div className="flex items-center ">
+              <label
+                htmlFor="dateTo"
+                className="text-[#5D6679] font-medium text-sm mr-2"
+              >
+                Date To:{" "}
+              </label>
+              {selectedFilters.endDate && (
+                <div className="flex items-center  w-[110px] h-[27px]  justify-center rounded-lg border border-gray-200 mr-2">
+                  <span className="mr-1 text-xs">
+                    {selectedFilters.endDate.toLocaleDateString()}
+                  </span>
+                  <img
+                    src={Cross2_LOGO}
+                    alt="cross23"
+                    className="w-3 h-3 cursor-pointer"
+                    onClick={() =>
+                      setSelectedFilters((prevFilters) => ({
+                        ...prevFilters,
+                        endDate: null,
+                      }))
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="flex items-center w-[300px] mt-[12px]">
             <label

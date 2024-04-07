@@ -44,20 +44,16 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
 
   const removeMachine = (machineName) => {
     setSelectedMachines((prevSelected) => {
-      // Filter out the machine with the given name
       return prevSelected.filter((name) => name !== machineName);
     });
   };
-  
 
   const handleBoxClick = (machineName) => {
     const trimmedMachineName = machineName.split("(")[0].trim();
     setSelectedMachines((prevSelected) => {
       if (prevSelected.includes(trimmedMachineName)) {
-        // If the machine is already selected, remove it
         return prevSelected.filter((name) => name !== trimmedMachineName);
       } else {
-        // If the machine is not selected, add it
         return [...prevSelected, trimmedMachineName];
       }
     });
@@ -66,17 +62,14 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
   const toggleStatus = (statusName) => {
     setSelectedStatuses((prevSelected) => {
       if (prevSelected.includes(statusName)) {
-        // If the status is already selected, remove it
         return prevSelected.filter((name) => name !== statusName);
       } else {
-        // If the status is not selected, add it
         return [...prevSelected, statusName];
       }
     });
   };
 
   const applyFilters = () => {
-    // Combine all selected filters and pass them to the callback function
     const selectedFilters = {
       machines: selectedMachines,
       statuses: selectedStatuses,
@@ -193,15 +186,15 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
               <button
                 key={index}
                 className={`w-[114px] h-[91px] rounded-lg border mr-[40px] mb-[20px] border-gray-400 ${
-                  selectedStatuses.includes(image.name) ? 'bg-gray-200' : ''
+                  selectedStatuses.includes(image.name) ? "bg-gray-200" : ""
                 }`}
                 onClick={() => toggleStatus(image.name)}
               >
-                <div>
+                <div className="flex items-center flex-col">
                   <img
                     src={image.path}
                     alt={image.name}
-                    className="w-[28px] mb-[10px] h-[28px]"
+                    className="w-[28px] mb-[10px]  h-[28px]"
                   />
                   <p className="font-semibold text-sm">{image.name}</p>
                 </div>
