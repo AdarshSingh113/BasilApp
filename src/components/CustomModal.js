@@ -48,6 +48,7 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
       return prevSelected.filter((name) => name !== machineName);
     });
   };
+  
 
   const handleBoxClick = (machineName) => {
     const trimmedMachineName = machineName.split("(")[0].trim();
@@ -83,6 +84,7 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
       endDate: selectedToDate,
     };
     updateFilters(selectedFilters);
+    onRequestClose();
   };
 
   return (
@@ -190,7 +192,10 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
             {images.map((image, index) => (
               <button
                 key={index}
-                className="w-[114px] h-[91px] rounded-lg border mr-[40px] mb-[20px] border-gray-400 flex items-center justify-center focus:border-black focus:outline-none"
+                className={`w-[114px] h-[91px] rounded-lg border mr-[40px] mb-[20px] border-gray-400 ${
+                  selectedStatuses.includes(image.name) ? 'bg-gray-200' : ''
+                }`}
+                onClick={() => toggleStatus(image.name)}
               >
                 <div>
                   <img

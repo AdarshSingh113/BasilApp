@@ -9,13 +9,45 @@ import ExtremeRight_LOGO from "../../src/assets/images/chevrons-right.png";
 import Pagination_LOGO from "../../src/assets/images/_Pagination Item_.png"
 import Left_LOGO from "../../src/assets/images/_Icon_ (1).png";
 import Right_LOGO from "../../src/assets/images/chevron-right.png";
-import Vector_LOGO from "../../src/assets/images/Vector.png"
+import Vector_LOGO from "../../src/assets/images/Vector.png";
+
 
 const AllOrders = () => {
   const [filteredOrders, setFilteredOrders] = useState(orders);
   const [sortByOrderIdAsc, setSortByOrderIdAsc] = useState(true);
   const [sortByAmountAsc, setSortByAmountAsc] = useState(true);
 
+  const updateFilteredOrders = (newFilteredOrders) => {
+    //setFilteredOrders(newFilteredOrders);
+    const { machines, statuses } = newFilteredOrders;
+
+
+    let filteredOrders = orders;
+
+  if (machines.length > 0) {
+    filteredOrders = filteredOrders.filter(order => {
+      const machineName = order.machine_name.split('(')[0].trim();
+      return machines.includes(machineName);
+    });
+  }
+
+  if (statuses.length > 0) {
+    filteredOrders = filteredOrders.filter(order => {
+      const status = order.status.toUpperCase();
+      const uppercaseStatuses = statuses.map(s => s.toUpperCase());
+      return uppercaseStatuses.includes(status);
+    });
+  }
+
+
+
+    setFilteredOrders(filteredOrders);
+  };
+
+  const clearAllFilters = () => {
+    setFilteredOrders(orders); // Reset filteredOrders back to original orders
+  };
+  
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,7 +96,7 @@ const AllOrders = () => {
       <Search orders={orders} setFilteredOrders={setFilteredOrders} />
       <div className="flex flex-row bg-white">
         <div>
-          <RefundBar />
+          <RefundBar orders={currentOrders} />
           <SecondaryHeader
             onOrderIdSort={handleSortByOrderId}
             onSort={handleSortByAmount}
@@ -72,7 +104,7 @@ const AllOrders = () => {
           <div className="my-[16px] ml-[32px] mr-[22px] bg-white">
             <div className="w-[938px] mt-[16px] ml-[16px "></div>
             {currentOrders.map((order, index) => (
-              <div
+              <button
                 key={index + indexOfFirstOrder}
                 className="flex flex-row mb-[16px]"
               >
@@ -117,7 +149,7 @@ const AllOrders = () => {
                     {order.status}
                   </p>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
           <div className="w-[992px] h-[32px]  bg-white my-[16px] ml-[32px] mr-[22px] flex flex-row justify-between ">
@@ -174,7 +206,7 @@ const AllOrders = () => {
           </div>
         </div>
         <div>
-          <Filters />
+          <Filters updateFilteredOrders={updateFilteredOrders} clearAllFilters={clearAllFilters}  />
         </div>
       </div>
     </div>

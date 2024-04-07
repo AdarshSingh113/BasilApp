@@ -3,7 +3,7 @@ const orders = [
       "date": "21/03/2023",
       "time":"13 :58 : 21",
       "order_id": "OD101",
-      "machine_name": "Aahaar Stall 4 (WH104)",
+      "machine_name": "Aahaar Stall 2 (WH104)",
       "customer_name": "Adarsh Singh",
       "contact_number": "9999999999",
       "address":"Aahaar Stall 10, Pragati Maidan, New Delhi",

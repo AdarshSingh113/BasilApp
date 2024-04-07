@@ -1,7 +1,6 @@
 import React from "react";
-import orders from "../utils/orders";
 
-const RefundBar = () => {
+const RefundBar = ({orders}) => {
   
   const machines1 = orders.reduce((acc, order) => {
    
