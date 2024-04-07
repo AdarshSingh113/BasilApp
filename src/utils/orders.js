@@ -68,14 +68,14 @@ const orders = [
           "drink_name": "Blueberry Fruit Punch",
           "customization": "Low Honey",
           "amount": 199,
-          "drink_status": "SUCCESS"
+          "drink_status": "SENT"
         },
         {
           "id": "C1O3",
           "drink_name": "Blueberry Fruit Punch",
           "customization": "Low Honey",
           "amount": 199,
-          "drink_status": "SUCCESS"
+          "drink_status": "REFUND COMPLETED"
         },
         {
           "id": "C1O4",

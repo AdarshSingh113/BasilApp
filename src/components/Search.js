@@ -25,7 +25,7 @@ const Search = ({ orders, setFilteredOrders }) => {
         />
         <img src={Search_LOGO} className="absolute left-2 top-1/2 transform -translate-y-1/2 h-[16px] w-[16px]" alt="Search" />
       </div>
-      <div className='flex flex-row'> 
+      <button className='flex flex-row'> 
         <img
         className='w-[36px] h-[36px]'
         src={Excel_LOGO}
@@ -36,7 +36,7 @@ const Search = ({ orders, setFilteredOrders }) => {
         src={Pdf_LOGO}
         alt='Pdf_LOGO'
         />
-      </div>
+      </button>
     </div>
   )
 }

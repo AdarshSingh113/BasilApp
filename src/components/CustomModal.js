@@ -158,7 +158,13 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
         <div className=" w-[774px] h-[960px]  bg-white shadow-lg ">
           {orders.map((order, index) => (
             <div
-              className="flex flex-row items-center ml-[20px]  p-4"
+              className={`flex flex-row items-center ml-[20px] p-4 ${
+                selectedMachines.includes(
+                  order.machine_name.split("(")[0].trim()
+                )
+                  ? "bg-blue-100"
+                  : ""
+              }`}
               key={index}
             >
               <button
@@ -251,7 +257,7 @@ const CustomModal = ({ isOpen, onRequestClose, updateFilters }) => {
             </p>
           </button>
           <button
-            className="w-[160px] h-[36px] bg-[#377DFF] mr-[50px] rounded-lg"
+            className="w-[160px] h-[36px] bg-[#377DFF] mr-[150px] rounded-lg transition-colors duration-300 ease-in-out hover:bg-blue-600"
             onClick={applyFilters}
           >
             <p className="text-white"> Apply</p>

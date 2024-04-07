@@ -13,7 +13,7 @@ const Body = () => {
     <div className="flex flex-row">
       <Sidebar />
       <div>
-        <Header ordersName={"ALL ORDERS"} Allorders={"All Orders"} />
+        <Header ordersName={"ALL Orders"} Allorders={"All Orders"} />
         <AllOrders />
       </div>
     </div>

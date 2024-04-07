@@ -6,7 +6,7 @@ const Header = ({ ordersName, Allorders }) => {
   return (
     <div className="bg-white w-[1328px] mt-0.5 h-[85px] ml-[16px] flex items-center shadow-lg rounded-lg">
       <div className="bg-white ml-[32px] my-[16px] w-[246px] h-[53px]">
-        <h2 className="text-black mb-[12px]">{Allorders}</h2>
+        <h2 className="text-black font-semibold  mb-[12px]">{Allorders}</h2>
         <p className="text-xs text-[#377DFF]">{ordersName}</p>
       </div>
       <div className="flex items-center w-[227px] h-[38px]  ml-[669px] mr-[32px]">
