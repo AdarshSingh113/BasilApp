@@ -50,7 +50,7 @@ const orders = [
       "address":"Aahaar Stall 10, Pragati Maidan, New Delhi",
       "customer_name": "Adarsh Singh",
       "contact_number": "9999999999",
-      "total_amount": 796,
+      "total_amount": 896,
       "status": "SUCCESS",
       "refund": false,
       "refund_transaction_id": "TX1042480129481",
@@ -67,7 +67,7 @@ const orders = [
           "id": "C1O2",
           "drink_name": "Blueberry Fruit Punch",
           "customization": "Low Honey",
-          "amount": 199,
+          "amount": 299,
           "drink_status": "SENT"
         },
         {
